@@ -29,3 +29,4 @@ const Header = ({ itensNoCarrinho }: Props) => {
 }
 
 export default Header
+// ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
