@@ -1,4 +1,4 @@
-começando os testes usando redux.
+°começando os testes usando redux.
 
 °uma observação:pasta utils serve para arzenarmos codigos especificos
 tipo funçõs especificas,enuns que nunca mudam o valor,etc
