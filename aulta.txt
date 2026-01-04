@@ -1,0 +1,77 @@
+começando os testes usando redux.
+
+°uma observação:pasta utils serve para arzenarmos codigos especificos
+tipo funçõs especificas,enuns que nunca mudam o valor,etc
+
+°é obrigatório existir o arquivo chamado
+       setupTests.ts
+    import '@testing-library/jest-dom'
+sem isso o jest não funciona
+
+°dentro da pasta de cada componente terá uma pasta chamada
+__tests__ com o arquivo NomeDoComponente.test.tsx
+
+°importamos o componente e itens a serem usados
+import { Provider } from 'react-redux'
+import Header from '../index'
+import { render, screen } from '@testing-library/react'
+import { store } from '../../../store'
+
+°criamos a suite de teste com describe()
+
+°dentro do render() o componente tem que esta envolvido por provider
+ render(
+      <Provider>
+        <Header />
+      </Provider>
+    )
+
+°como estamos usando redux o Provider precisa da store
+   render(
+      <Provider store={store}>
+        <Header />
+      </Provider>
+    )
+
+°teste de elementos com valores interativos que armazenam dados
+como é com redux,então iremos partir do slice de um elemento
+       criamos uma pasta chamada
+  utils/tests.tsx(componente de teste)
+  criamos uma função que renderiza os componentes na memória(um render customizado)
+   sintaxe
+
+ import { RenderOptions } from '@testing-library/react'
+import { PreloadedState } from '@reduxjs/toolkit'
+import React from 'react'
+
+type ExtendenRenderOptions = Omit<RenderOptions, 'queries'>{
+  preloadedState?:PreloadedState
+}
+
+export function renderizaComProvider(
+  elemento: React.ReactElement,
+  {
+    preloadedState = {},
+    store,
+    ...opcoesAdicionais
+  }: ExtendenRenderOptions = {}
+)
+
+   elemento um objeto e é o argumento da função,
+   React.ReactElement é o tipo
+   preloadedState:{} é o estado inicial do elemento
+   store é a store quem vem do slice
+   opcoesAdicionais é um argumento adicional
+   : ExtendenRenderOptions = {} é o tipo e também um objeto
+   Omit é um tipo do type scrip,ele serve para omitir propriedades obregatoria de um
+   objeto
+   RenderOptions é um tipo e também um objeto
+   estamos omitindo a propriedade 'queries'
+   muito desse tipos são objetos pois tem funções imbutidas
+
+°muito importante quando se trabalha com testes que querem acessar
+dados do slice é preciso criar uma configuração especifica na store,
+a configuração é bem complexa,nesse caso as configurações se encontrar na documentação
+tem que ver a documentação do redux e do react
+
+
